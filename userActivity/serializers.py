@@ -32,7 +32,7 @@ class ActivitySerializer(serializers.ModelSerializer):
         Meta class definition for ActivitySerializer
         """
         model = Activity
-        fields = ['id', 'start_time', 'end_time']
+        fields = ['start_time', 'end_time']
 
 class FTUserSerializer(serializers.ModelSerializer):
     """
@@ -44,7 +44,7 @@ class FTUserSerializer(serializers.ModelSerializer):
     activity_periods=ContentObjectRelatedField(many=True, queryset=Activity.objects.all())
     def to_representation(self, instance):
         serialized_data = super(FTUserSerializer, self).to_representation(instance)
-        
+
         return serialized_data
 
     class Meta(object):

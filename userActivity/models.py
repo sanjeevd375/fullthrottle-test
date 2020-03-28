@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import random
+import string
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.template.defaultfilters import slugify
-import random
-import string
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import(
     GenericForeignKey,
@@ -49,9 +49,11 @@ class FTUser(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     def get_short_name(self):
+        """returns user name"""
         return self.real_name
 
     def generate_uid(self):
+        """generates uid for FTUser"""
         if not self.uid:
             self.uid = slugify(str(self.email.split("@")[0]) + "-" + ''.join(
                 random.choice(string.ascii_uppercase + string.digits) for _ in range(10)))
