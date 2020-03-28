@@ -4,12 +4,16 @@ from __future__ import unicode_literals
 from django.contrib import admin
 
 # Register your models here.
-from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import FTUser
+from .models import FTUser, Activity
 
+class ActivityAdmin(admin.ModelAdmin):
+    #inline admin field
+    model = Activity
+    list_display = ('start_time', 'end_time')
+    #readonly_fields = ('start_time', 'end_time')
 
 class FTUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
@@ -32,3 +36,4 @@ class FTUserAdmin(UserAdmin):
 
 
 admin.site.register(FTUser, FTUserAdmin)
+admin.site.register(Activity, ActivityAdmin)

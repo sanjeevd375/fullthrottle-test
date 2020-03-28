@@ -9,9 +9,22 @@ from django.utils import timezone
 from django.template.defaultfilters import slugify
 import random
 import string
-from timezone_field import TimeZoneFormField
-
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import(
+    GenericForeignKey,
+    GenericRelation
+)
 from .managers import CustomUserManager
+
+class Activity(models.Model):
+    start_time = models.DateTimeField(blank=True, null=True)
+    end_time = models.DateTimeField(blank=True, null=True)
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE
+    )
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
 
 class FTUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
@@ -21,6 +34,7 @@ class FTUser(AbstractBaseUser, PermissionsMixin):
     uid = models.SlugField(null=False, blank=True, max_length=100)
     real_name = models.CharField(null=True, blank=True, max_length=100)
     tz = models.CharField(max_length=100, blank=True, null=True, default='Asia/Kolkata')
+    activity_periods = GenericRelation(Activity, related_name='activity')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -39,5 +53,5 @@ class FTUser(AbstractBaseUser, PermissionsMixin):
 
     def generate_uid(self):
         if not self.uid:
-            self.uid = slugify(str(self.real_name.split("@")[0]) + "-" + ''.join(
+            self.uid = slugify(str(self.email.split("@")[0]) + "-" + ''.join(
                 random.choice(string.ascii_uppercase + string.digits) for _ in range(10)))
