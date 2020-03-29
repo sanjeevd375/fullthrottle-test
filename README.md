@@ -3,10 +3,15 @@ Sample django application with users and their respective activity.
 
 ### Codebase Setup
 
-Step 1. Clone the public git repository. Use the command below in terminal.
+Step 1. Create Virtualenv and activate it.
+
+      pip install virtualenv
+      virtualenv venv
+      . venv/bin/activate
+Step 2. Clone the public git repository. Use the command below in terminal.
 
       git clone https://github.com/sanjeevd375/fullthrottle-test.git
-Step 2. Install Requirements
+Step 3. Install Requirements
 
       pip install requirements.txt
       
