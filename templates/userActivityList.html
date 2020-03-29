@@ -49,8 +49,8 @@
                     <h5><b>Time Zone : </b> {{value}}
                   </div>
                 {% elif key == "activity_periods" %}
-                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">Activity</button>
-                <div id="demo" class="collapse">
+                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo{{member.real_name}}">Activity</button>
+                <div id="demo{{member.real_name}}" class="collapse">
                   <table class="table table-striped">
                     <thead>
                       <tr>
