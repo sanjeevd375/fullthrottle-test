@@ -13,7 +13,7 @@ Step 2. Clone the public git repository. Use the command below in terminal.
       git clone https://github.com/sanjeevd375/fullthrottle-test.git
 Step 3. Install Requirements
 
-      pip install requirements.txt
+      pip install -r requirements.txt
       
 ### MySQL Database Initialization
 
@@ -23,7 +23,20 @@ Run the below commands in mysql terminal to create database.
     GRANT ALL PRIVILEGES ON fullthrottle.* TO 'root'@'localhost';
     FLUSH PRIVILEGES;
 
-### Start Server
+Once database created modify the below configurations in "fullthrottle/settings.py" file.
+
+      DATABASES = {
+          'default':{
+              'ENGINE': 'django.db.backends.mysql',
+              'NAME': 'fullthrottle',
+              'USER': 'root', 
+              'PASSWORD': '<mysql-database password>',
+              'HOST': 'localhost',
+              'PORT': ''
+          }
+      }
+
+### Migrate database, Dump sampledata and Start Server
 
 Run the below command to initialize and start server.
 
