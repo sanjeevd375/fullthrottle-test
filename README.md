@@ -36,3 +36,7 @@ Run the below command to initialize and start server.
 Copy the url in browser to get list of user activity.
 
      http://localhost:8000/user/activity/
+
+![Screenshot](frontend1.png)
+![Screenshot](frontend2.png)
+
