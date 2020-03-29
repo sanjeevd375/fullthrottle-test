@@ -3,6 +3,10 @@
 <html lang="en">
 
   <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <style>
       * {
         box-sizing: border-box;
@@ -24,34 +28,52 @@
   </head>
   <body>
     <header>
-      <h2>Fullthrottle lab User Activity</h2>
+      <h2>Fullthrottle labs User Activity Dashboard</h2>
     </header>
     {% block content %}
       {% for member in members %}
-        <div class="col-md-12" style="text-align:center">
-        </div>
-
-
-                      {% for key,value in member.iteritems %}
-                            <h5><b>{{key}} : </b> {{value}} </h5>
-                            <table>
-                              <tr>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                              </tr>
-                              <tr>
-                                <td>January</td>
-                                <td>$100</td>
-                              </tr>
-                              <tr>
-                                <td>February</td>
-                                <td>$80</td>
-                              </tr>
-                            </table>
-                      {% endfor %}
-                  {% endfor %}
+      <div class="container">
+        <div class="jumbotron">
+          <div class="d-inline-flex p-3 bg-secondary text-white">
+              {% for key,value in member.iteritems %}
+                {% if key == "uid" %}
+                  <div class="p-2 bg-info">
+                    <h5><b>User ID : </b> {{value}}
+                  </div>
+                {% elif key == "real_name" %}
+                  <div class="p-2 bg-primary">
+                    <h5><b>Full Name : </b> {{value}}
+                  </div>
+                {% elif key == "tz" %}
+                  <div class="p-2 bg-warning">
+                    <h5><b>Time Zone : </b> {{value}}
+                  </div>
+                {% elif key == "activity_periods" %}
+                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">Activity</button>
+                <div id="demo" class="collapse">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                      </tr>
+                    </thead>
+                    {% for activity in value %}
+                    <tbody>
+                      <tr>
+                        <td>{{activity.start_time}}</td>
+                        <td>{{activity.end_time}}</td>
+                      </tr>
+                    </tbody>
+                    {% endfor %}
+                  </table>
                 </div>
-
+                {% endif %}
+              {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
     {% endblock %}
     <footer style="background-color: rgb(28, 28, 28);padding:2em 0;margin-top:1em;">
       <p class="text-center" style="margin-bottom:0;color:#fff">FullThrottle Lab</p>
